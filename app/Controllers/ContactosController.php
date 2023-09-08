@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\ContactoModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
+use Carbon\Carbon;
+use CodeIgniter\I18n\Time;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -221,6 +223,31 @@ class ContactosController extends BaseController
 
 
     }
+
+
+    public function show(int $id){
+         //se busca el registro a travez del ID
+         $contacto = $this->contactoModel->find($id);
+
+         //verifica que el registro exista en la BD
+         if(empty($contacto)){
+            return $this->response->setStatusCode(404, 'Not found');
+         }
+
+         //se prepara el arreglo con una respuesta del servidor para el cliente
+         $data = [
+            'nombre' => $contacto->nombre,
+            'telefono' => $contacto->telefono,
+            'correo' => $contacto->correo,
+            'created_at' => $contacto->created_at,
+            'success' => true
+        ];
+
+        //se retorna una respuesta en formato JSON
+        return $this->response->setJSON($data);
+    }
+
+
 
     public function destroy(int $id){
         

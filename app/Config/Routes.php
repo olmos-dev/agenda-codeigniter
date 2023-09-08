@@ -13,6 +13,8 @@ $routes->get('/home','InicioController::index');
 $routes->get('/contactos','ContactosController::index');
 //edita un contacto
 $routes->get('/contactos/editar/(:num)','ContactosController::edit/$1');
+//mostrar
+$routes->get('/contactos/ver/(:num)','ContactosController::show/$1');
 //guarda un contacto
 $routes->post('/contactos','ContactosController::store');
 //actualiza un contacto

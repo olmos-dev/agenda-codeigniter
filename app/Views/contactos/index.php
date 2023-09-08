@@ -63,6 +63,13 @@ use function PHPUnit\Framework\isEmpty;
                         <td><?php echo $contacto->telefono; ?></td>
                         <td><?php echo $contacto->correo; ?></td>
                         <td>
+                            <!-- Button trigger modal -->
+                            <button data-id="<?php echo $contacto->contacto_id; ?>" type="button" class="btn btn-warning btn-sm ver" data-toggle="modal" data-target="#modelId">
+                              Ver
+                            </button>
+                            <?php echo $this->include('contactos/show'); ?>
+                        </td>
+                        <td>
                             <a href="<?php echo base_url().'contactos/editar/'.$contacto->contacto_id; ?>" class="btn btn-warning btn-sm">Editar</a>
                         </td>
                         <td>
@@ -95,8 +102,10 @@ use function PHPUnit\Framework\isEmpty;
 
 <!-- Aqui empieza el contenido dinamico de cada sección -->
 <?php echo $this->section('js'); ?>
-
-<script src="<?php echo base_url().'/js/delete.js'; ?>"></script>
+<script src="<?php echo base_url().'/js/moment.js' ?>"></script>
+<script src="<?php echo base_url().'/js/momentlocale.js'?>"></script>
+<script src="<?php echo base_url().'/js/delete.js' ?>"></script>
+<script src="<?php echo base_url().'/js/show.js' ?>"></script>
 
 <!-- cierra el cotenido dinamico -->
 <?php echo $this->endSection(); ?>
