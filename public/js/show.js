@@ -27,7 +27,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
                     }
                 },
                 error: function( jqXHR, textStatus, errorThrown ) {
+                    //una alerta de error
                     swal("Error", "No se pudo procesar la solicitud", "warning");
+                    //se cierra automaticamente del modal - se definio un tiempo para que se pueda cerrar por el ciclo de vida del DOM
+                    setInterval(function(){
+                        document.getElementById('cerrarModal').click()
+                    },100); 
+                    
+
                 }
             });
         
