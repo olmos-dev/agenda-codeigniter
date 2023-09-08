@@ -1,5 +1,5 @@
 <form action="<?php echo base_url(); ?>contactos" method="post" novalidate>
-    <div class="card shadow">
+    <div class="card shadow sticky-top">
         <div class="card-header">
             <div class="card-title lead">Registar un nuevo contacto</div>
         </div>

@@ -1,5 +1,9 @@
 <!-- Aqui se manda a llamar el layout base -->
-<?php echo $this->extend("plantillas/layout"); ?>
+<?php
+
+use function PHPUnit\Framework\isEmpty;
+
+ echo $this->extend("plantillas/layout"); ?>
 
 <!-- Aqui empieza el contenido dinamico de cada sección -->
 <?php echo $this->section('contenido'); ?>
@@ -22,9 +26,28 @@
             <!--Se incluye el formulario de crear un nuevo contacto-->
            <?php  echo $this->include('contactos/create'); ?>
         </div>
-        <div class="col-12 col-md-8 order-1 order-md-2 table-responsive">
+        <div class="col-12 col-md-8 order-1 order-md-2">
+            <!--EL formulario para buscar-->
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center justify-content-md-end">
+                    <form class="form-inline my-5 my-lg-0" method="get" action="<?php base_url().'/contactos'; ?>">
+                        <div class="input-group mb-2">
+                            <input class="form-control" name="buscar" type="search" placeholder="Buscar por nombre" aria-label="Search">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-light my-sm-0" type="submit">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2 d-flex justify-content-center justify-content-md-end">
+                <small class="text-danger"><?php echo validation_show_error('buscar'); ?></small>
+                </div>
+            </div>
             <!-- se muestra el listado de contactos-->
-            <table class="table table-hover">
+            <?php if (!empty($contactos)): ?>
+            <table class="table table-hover table-responsive">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -47,8 +70,22 @@
                         </td>
                     </tr>
                     <?php endforeach;  ?>
-                </tbody>
+                </tbody>                
             </table>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                <?= $pager->links() ?>
+                </div>
+            </div>
+            <!-- Cuando el arreglo de los contactos esta vacio -->
+            <?php else: ?>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start">
+                        <p class="text-muted h5">No hay resultados</p>
+                    </div>
+                </div>
+               
+            <?php endif ?>
         </div>
     </div>
 </div>

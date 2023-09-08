@@ -6,6 +6,8 @@ use App\Models\ContactoModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ContactosController extends BaseController
 {
     
@@ -21,13 +23,46 @@ class ContactosController extends BaseController
     }
 
     public function index(){
+        //se hace uso del request para obtener los datos del formulario 
+        $request = \Config\Services::request();
 
-        //se utiliza el codeigniter's model
-        $contactos = $this->contactoModel->findAll();
+        //se hace uso de la libreria para validaciones
+        $validation = \Config\Services::validation();
+
+        //se obtiene el valor del parametro de buscar
+        $buscar = $request->getGet('buscar') ?? '';
+
+        //valida si el usuario a ingresado alguna busqueda
+        if(!empty($buscar)){
+            //se realiza la validacion de los valores de buscar
+            $validation->setRules([
+                'buscar' => [
+                    'rules' => 'alpha',
+                    'errors' => [
+                        'alpha' => 'El campo buscar solo se permiten letras',
+                    ]
+                ],
+            ]);
+
+            //se reciben los datos del formulario
+            $data = [
+                'buscar' => $buscar
+            ];
+
+            //se realiza el proceso de validacion | se ejecuta cuando se encuentran errores de validacion
+            if (!$validation->run($data)) {
+                return redirect()->back()->withInput();
+            }
+        }
+
+
+        //se utiliza el codeigniter's model - Produces: WHERE `nombre` LIKE 'buscar%' ESCAPE '!'
+        $contactos = $this->contactoModel->like('nombre',$buscar,'after')->orderBy('nombre','asc')->paginate(10);
 
         //se prepara un array associativo para obtener los datos del query
         $data = [
             'contactos' => $contactos,
+            'pager' => $this->contactoModel->pager
         ];
 
         //se retorna una vista y se le pasa el arreglo de datos
