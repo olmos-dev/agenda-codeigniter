@@ -227,7 +227,7 @@ class ContactosController extends BaseController
 
     public function show(int $id){
          //se busca el registro a travez del ID
-         $contacto = $this->contactoModel->find(99999);
+         $contacto = $this->contactoModel->find($id);
 
          //verifica que el registro exista en la BD
          if(empty($contacto)){

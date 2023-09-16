@@ -22,7 +22,7 @@ use function PHPUnit\Framework\isEmpty;
    <?php endif; ?>
 
     <div class="row">
-        <div class="col-12 col-md-4 my-5 my-md-0 order-2 order-md-1">
+        <div class="col-12 col-md-4 my-5 my-md-5 order-2 order-md-1">
             <!--Se incluye el formulario de crear un nuevo contacto-->
            <?php  echo $this->include('contactos/create'); ?>
         </div>
