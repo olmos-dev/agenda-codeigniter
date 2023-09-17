@@ -1,62 +1,115 @@
-# CodeIgniter 4 Application Starter
+# Agenda Codeigniter - Descripción
+Es un proyecto realizado con el framework PHP Codeigniter 4 que integra jQuery y realiza peticiones AJAX. Además utiliza Bootstrap. 
 
-## What is CodeIgniter?
+Es un CRUD que se utiliza una agenda de contactos para realizar las operaciones de insertar, actualizar, eliminar y listar. También realiza la paginación sin perdida de parámetros en la búsqueda
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Tambien se utilizo algunos plugins de javascript como:
+ - sweet alert (mensajes de alerta) 
+ - moment.js (trabajar con formatos de tiempo y fechas)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+# Requerimientos
+- php 8.1
+- CodeIgniter 4.4.0
+- phpMyAdmin
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+# Primeros pasos
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+## Descargar o clonar este repositorio
+```
+git clone https://github.com/olmos-dev/agenda-codeigniter.git
+```
 
-## Installation & updates
+## Carpeta Vendor
+Para descargar los archivos necesarios del framework Codeigniter de la carpeta vendor ejecuta la siguiente linea de comandos
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+```
+composer update
+```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Crear archivo .env
+Copia y pega lo que contiene el archivo env (se encuentra en la raiz del proyecto) a un nuevo archivo y renombrarlo como .env
 
-## Setup
+## Ajustar las variables de entorno en .env
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Puedes cambiar por production ó develoment
+```
+CI_ENVIRONMENT = development
+```
 
-## Important Change with index.php
+## Configurar la Base de datos
+Debes de descomentar las lineas y ajusta los parametros de acuerdo a las credenciales de tu base de datos
+```
+database.default.hostname = localhost
+database.default.database = crud_uno
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+database.default.port = 3306
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## Crear base de datos
+crear una base de datos llamada crud_uno
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Importa la base de datos 
+Importa la base de datos que se encuentra en este proyecto en la carpeta files llamada "crud_uno"
 
-**Please** read the user guide for a better explanation of how CI4 works!
+# Ejecutar el proyecto
+Ejecuta con el servidor que provee codeigniter
 
-## Repository Management
+```
+php spark serve
+```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Ahora desde tu navegador ve al siguiente enlace
+```
+http://localhost:8080/contactos
+```
+# Documentación
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Construido con
+- **php 8.1**
+- **Codeigniter 4.4.1**
+- **MySQL**
+- **jQuery**
+- **Ajax**
+- **Bootstrap**
+- **Sweet Alert**
+- **Moment.js**
 
-## Server Requirements
+## Base de datos - tabla contacto
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+![tabla contacto](files/tabla.png "tabla contacto")
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## Screenshots
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+### Inicio
+![index](files/index.png "Lista de contactos")
+Se muestra la página principal de la agenda de contactos
+- Al lado izquierdo se muestra el formulario de registro 
+- Al lado derecho se muestra el listado de los contactos. 
+- En la parte superior derecha se puede realizar búsquedas
+- En la parte inferior está la paginación 
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+### Editar un contacto
+![edit](files/edit.png "Editar un contacto")
+Se muestra el formulario para la edicion de un contacto
+
+### Mostrar un contacto
+![show](files/show.png "Mostrar un contacto")
+Se muestra un modal que contiene la vista previa de un contacto y la peticon se realiza a travez de ajax
+
+### Eliminar un contacto
+![delete](files/delete.png "Eliminar un contacto")
+Se realiza una peticion ajax y se muestra una alerta para eliminar el contacto
+
+
+### Buscar un contacto
+![search](files/search.png "Realizar busquedas")
+Se pueden realizar busquedas
+
+### Validaciones
+![validators](files/validators.png "Realizar busquedas")
+Se muestran los errores de validacion. Aplican al registar y editar un contacto.
+
